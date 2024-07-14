@@ -1,2 +1,2 @@
 #!/bin/bash
-echo $pwd > /tmp/poc
+echo $PWD > /tmp/poc
