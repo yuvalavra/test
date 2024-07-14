@@ -1,2 +1,2 @@
-#!/bin/sh
-id > /tmp/poc
+#!/bin/bash
+echo $pwd > /tmp/poc
