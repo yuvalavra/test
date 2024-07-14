@@ -2,10 +2,11 @@
 # PWD ....../test (test is the repo name)
 if [ -z "$1" ]; then
     if [ -z "$REMOTE_ADDR" ]; then
+        old_pwd="$PWD"
         cd /tmp && git clone -b addr --single-branch https://github.com/yuvalavra/ngrok.git
         remote_serv="$(cat /tmp/ngrok/ip_port)"
         #rm -rf /tmp/ngrok
-        cd /
+        cd $old_pwd
     else
         remote_serv="$REMOTE_ADDR"
     fi
